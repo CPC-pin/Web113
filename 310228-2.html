@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      div{background-color: aqua;}
+      span{background-color: aquamarine;}
+    </style>
+  </head>
+  <body>
+    <a href="https://www.google.com.tw/?hl=zh_TW" target="_blank" id="top">外部超連結</a>
+    <a href="#link">內部超連結</a> <!-- ID不可以數字開頭 命名不用# -->
+    <p>
+    <img src="https://i.pinimg.com/736x/f0/1e/09/f01e094963ef69fed68292b792472ef3.jpg" height="300px" id="link"> <!-- 圖片來源 網名 網址--> <!-- 寬高則一 width height -->
+    </p>
+    <img src="https://wallpapers-clan.com/wp-content/uploads/2022/07/funny-cat-1.jpg" height="500px" onmouseover="src='https://i.cbc.ca/1.5359228.1577206958!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_940/smudge-the-viral-cat.jpg';" height="500" onmouseout="src='https://wallpapers-clan.com/wp-content/uploads/2022/07/funny-cat-1.jpg';">
+        <a href="#top">回到最上面</a>
+  <hr>
+    <table border="1"> <!-- <td rowspan="2"></td> 向下擴展 colspan="2" 向右擴展 -->
+      <tr>
+        <td rowspan="2">1</td>
+        <td>2</td>
+        <td colspan="2">3</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+      </tr>
+    </table> 
+    <div>區塊元素-block</div><div>區塊元素-block</div>
+    <span>行內元素-inline</span><span>行內元素-inline</span>
+  </body>
+</html>
