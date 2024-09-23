@@ -18,14 +18,34 @@
             #id {   }
             .class {    }
             */
+            /* 顏色
+                1.color name
+                2.#色碼
+                3.rgb(r,g,b) 0~255
+                4.rgba(r,g,b,a) 0~255 a:可見度 0~1
+                5.hsl(色相,彩度,亮度)
+                6.hsla(0~360,0~100%,0~100%,0~1)
+            */
+            /* 
+                前景:文字顏色(color)
+                背景(background):顏色(background-color)
+                圖像(background-image)
+            */
             p {margin: 0;}
-            div {margin: 20; margin-bottom: 20;}
             span {background-color: thistle;}
             #sp1 {background-color: aquamarine; display: inline-block; height: 200; width: 200;} <!-- 行內區塊元素可以改寬高-->
             #sp2 {background-color: red;}
             #sp3 {display: block; background-color: wheat;}
             .cs1 {color: violet;}
             .cs2 {color: tomato;}
+            div {background-color: aqua; margin-bottom: 10; width: 200; height: 50;}
+            #d2 {background: linear-gradient(blue,white,red);}
+            #d3 {background: linear-gradient(to right,blue,white,red);}
+            #d4 {background: linear-gradient(to left,blue,white,red);}
+            /* 漸層 NOT A COLOR IS A IMAGE
+            1.線性漸層 linear-gradient()
+            2.放射漸層
+            3錐狀漸層*/
          </style>
     </head>
     <body>
@@ -40,5 +60,9 @@
         <span id="sp1">行內元素</span>
         <span id="sp2" class="cs1">行內區塊元素</span>
         <span id="sp3" class="cs2">區塊元素</span>
+        <hr>
+        <div id="d2"></div>
+        <div id="d3"></div>
+        <div id="d4"></div>
     </body>
 </html>
