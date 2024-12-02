@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>1125上課筆記-鍵盤控制</title>
+        <title>1202上課筆記-鍵盤控制2</title>
         <meta charset="UTF-8">
         <style>
             #worldmap {
@@ -19,33 +19,46 @@
                 width: 48px;
                 height: 72px;
                 position: absolute;
-                animation: rolewalk 1s steps(3) infinite;
+                animation: rolewalk 0.5s steps(3) infinite paused;
             }
         </style>
         <script>
             var pos={x:0,y:0}
+            var dir={"ArrowUp":0, "ArrowDown":0, "ArrowLeft":0, "ArrowRight":0};
             function get(id) {
                 return document.getElementById(id)
             }
             function mykeydown() {
                 event.preventDefault();
-                if(event.key=="ArrowUp") {
-                    get("role").style.backgroundPositionY="-216px";
-                    pos.y-=5;
-                } else if(event.key=="ArrowDown") {
-                    get("role").style.backgroundPositionY="0px";
-                    pos.y+=5;
-                } else if(event.key=="ArrowLeft") {
-                    get("role").style.backgroundPositionY="-72px";
-                    pos.x-=5;
-                } else if(event.key=="ArrowRight") {
-                    get("role").style.backgroundPositionY="-144px";
-                    pos.x+=5;
+                var bgPY={"ArrowUp":"-216px", "ArrowDown":"0px", "ArrowLeft":"-72px", "ArrowRight":"-144px"};
+                get("role").style.backgroundPositionY=bgPY[event.key];
+                dir[event.key]=1;
+                get("role").style.animationPlayState="running";
+            }
+            function mykeyup() {
+                event.preventDefault();
+                dir[event.key]=0; 
+                get("role").style.animationPlayState="paused";
+            }
+            function walk() {
+                if(dir["ArrowUp"]==1) {
+                    pos.y--;
+                } else if(dir["ArrowDown"]==1) {
+                    pos.y++;
+                } else if(dir["ArrowLeft"]==1) {
+                    pos.x--;
+                } else if(dir["ArrowRight"]==1) {
+                    pos.x++;
                 }
                 get("role").style.left=pos.x+"px";
                 get("role").style.top=pos.y+"px";
             }
-        </script>
+            function gameInit() {
+                pos={x:376, y:364};
+                dir={"ArrowUp":0, "ArrowDown":0, "ArrowLeft":0, "ArrowRight":0};
+                setInterval(walk,20);
+            }
+    </script>
     </head>
     <ul>
         <li><a href="310228.html">HTML簡介</a></li>
@@ -59,12 +72,12 @@
         <li><a href="310228-9.html">1104上課筆記</a></li>
         <li><a href="310228-10.html">翻牌遊戲</a></li>
         <li><a href="310228-11.html">1118上課筆記</a></li>
-        <li><a href="310228-13.html">1202上課筆記-鍵盤控制2</a></li>
+        <li><a href="310228-12.html">1125上課筆記-鍵盤控制</a></li>
         <li><a href="finalgame.html">期末作品</a></li>
         <li><a href="index.html">回到首頁</a></li>
     </ul>
     <hr>
-    <body onkeydown="mykeydown();">
+    <body onload="gameInit();"onkeydown="mykeydown();" onkeyup="mykeyup()">
         <div id="worldmap">
             <div id="role"></div>
         </div>
