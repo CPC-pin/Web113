@@ -2,6 +2,72 @@
     <head>
         <title>期末作品</title>
         <meta charset="UTF-8">
+        <style>
+            h1 {
+                margin-top: 10px;
+            }
+            #gamearea {
+                position: relative;
+                width: 90%;
+                height: 500px;
+                margin: 20px auto;
+                background-color: white;
+                border: 2px solid black;
+                overflow: hidden;
+            }
+            .target {
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                background: red;
+                border-radius: 50%;
+            }
+            button {
+                margin-top: 20px;
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+            p {
+              font-size: 20px; 
+            }
+        </style>
+        <script>
+            var gamearea = document.getElementById("gamearea");
+            var scoredisplay = document.getElementById("score");
+            var timedisplay = document.getElementById("time");
+            var startbutton = document.getElementById("startbutton");
+            var score = 0;
+            var timeleft = 30;
+            var gamerunning = false;
+            var gameinterval;
+            var targetinterval;
+            function startgame() {
+                score = 0;
+                timeleft = 30;
+                gamerunning = true;
+                scoredisplay.textContent = score;
+                timedisplay.textContent = timeleft;
+                startbutton.disabled = true;
+                setInterval(function() { 
+                    timeleft--;
+                    timedisplay.textContent = timeleft;
+                    if (timeleft <= 0 ) {
+                        endgame();
+                    }
+                }, 1000);
+                targetinterval = setInterval(spamtarget, 1000);
+            }
+            function endgame() {
+                clearInterval(gameinterval);
+                clearInterval(targetinterval);
+                gamerunning = false;
+                alert("遊戲結束！你的分數是："+ score);
+                startbutton.disabled = false;
+            }
+            function spamtarget () {
+                
+            }
+        </script>
     </head>
     <body>
         <ul>
@@ -20,5 +86,12 @@
         <li><a href="310228-13.html">1202上課筆記-鍵盤控制2</a></li>
         <li><a href="index.html">回到首頁</a></li>
     </ul>
+    <hr>
+    <h1>AIMLAB SIMULATOR</h1>
+    <p>分數：<span id="score">0</span>｜剩餘時間：<span id="time">30</span></p>
+    <div id="gamearea"></div>
+    <button id="startbutton">開始遊戲</button>
+
+
     </body>
 </html>
