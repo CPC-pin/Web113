@@ -1,108 +1,118 @@
+
 <html>
-    <head>
-        <title>1118上課筆記</title>
-        <meta charset="UTF-8">
-        <style>
-            #timebar {
-                width: 800px;
-                height: 20px;
-                background-color: green;
+<head>
+    <title>動態生成與刪除</title>
+    <meta charset="UTF-8">
+    <style>
+        #timebar {
+            width: 800px;
+            height: 20px;
+            background-color: green;
+        }
+        #board {
+            width: 800px;
+            height: 800px;
+            border: 1px solid gray;
+            position: relative;
+        }
+        .target {
+            position: absolute;
+            border-radius: 100%;
+        }
+    </style>
+    <script>
+        function get(id) {
+            return document.getElementById(id);
+        }
+        function getRandNum(min,max) {
+            return Math.floor(Math.random()*(max-min+1))+min;
+        }
+        function timeCountdown() {
+            tbWidth=tbWidth-1;
+            get("timebar").style.width=tbWidth+"px";
+            if(tbWidth<=0){
+                gameStop();
+            } else if(tbWidth<100) {
+                get("timebar").style.backgroundColor="red";
+            } else if(tbWidth<300) {
+                get("timebar").style.backgroundColor="orange";
             }
-            #board {
-                width: 800px;
-                height: 800px;
-                border: 1px solid gray;
-                position: relative;
-            }
-            .target {
-                position: absolute;
-                border-radius: 100%;
-            }
-        </style>
-        <script>
-            function get (id) {
-                return document.getElementById(id);
-            }
-            function getRandNum(min,max) {
-                return Math.floor(Math.random()*(max-min+1))+min;
-            }
-            function timeCountdown() {
-                tbwidth=tbwidth-1;
-                get("timebar").style.width=tbwidth+"px";
-                if(tbwidth<=0) {
-                    gameStop()
-                } else if(tbwidth<100) {
-                    get("timebar").style.backgroundColor="red";
-                } else if(tbwidth<300) {
-                    get("timebar").style.backgroundColor="orange";
-                }
-            }
-            function hitTarget() {
-                if(gaming==false) return;
-                x=event.target;
-                gameScore+=x,score;
-                get("score").innerHTML=gameScore;
-                x.remove();
-                if(gameScore>=300) {
-                    clearInterval(targetTimer)
-                    targetTimer=setInterval(newTarget,500);
-                } else if(gameScore>=100) {
-                    clearInterval(targetTimer)
-                    targetTimer=setInterval(newTarget,800)
-                }
-            }
-            function newTarget() {
-                var x=document.createElement("div");
-                x.className="target";
-                x.score=getRandNum(1,5);
-                x.pos={x:0, y:0, w:50, h:50};
-                x.pos.w=getRandNum(6-x.score)*10+20;
-                x.pos.h=x.pos.w;
-                x.pos.x=getRandNum(0,800-x.pos.w);
-                x.pos.y=getRandNum(0,800-x.pos.h);
-                x.style.width=x.pos.w+"px";
-                x.style.height=x.pos.h+"px";
-                x.style.left=x.pos.x+"px";
-                x.style.top=x.pos.y+"px";
-                x.style.backgroundColor=`hsl(${getRandNum(0,360)},80%,50%)`;
-                x.addEventListener("click",hitTarget);
-                get("board").appendChild(x);
-            }
-            function gameStart() {
-                gaming=ture;
-                gameScore=0;
-                tbwidth=800;
-                gameTimer=setInterval(timeCountdown,100);
-                targetTimer=setInterval(newTarget,1000);
-            }
-            function gameStop() {
-                gaming=false;
-                clearInterval(gameTimer);
+        }
+        function hitTarget() {
+            if(gameing==false) return;
+            x=event.target;
+            gameScore+=x.score;
+            get("score").innerHTML=gameScore;
+            x.remove();
+
+            if(gameScore>=300) {
                 clearInterval(targetTimer);
+                targetTimer=setInterval(newTarget,500);
+            } else if(gameScore>=100) {
+                clearInterval(targetTimer);
+                targetTimer=setInterval(newTarget,800);
             }
-        </script>
-    </head>
-    <body>
-        <ul>
-            <li><a href="310228.html">HTML簡介</a></li>
-            <li><a href="310228-2.html">第二次上課筆記</a></li>
-            <li><a href="310228-3.html">CSS基本語法</a></li>
-            <li><a href="310228-4.html">CSS漸層與動畫</a></li>
-            <li><a href="310228-5.html">元素的平面空間</a></li>
-            <li><a href="310228-6.html">精靈圖</a></li>
-            <li><a href="310228-7.html">JS簡介</a></li>
-            <li><a href="310228-8.html">表單控制及亂數</a></li>
-            <li><a href="310228-9.html">1104上課筆記</a></li>
-            <li><a href="310228-10.html">翻牌遊戲</a></li>
-            <li><a href="310228-12.html">1125上課筆記-鍵盤控制</a></li>
-            <li><a href="310228-13.html">1202上課筆記-鍵盤控制2</a></li>
-            <li><a href="finalgame.html">期末作品</a></li>
-            <li><a href="index.html">回到首頁</a></li>
-        </ul>
-        <hr>
-        <div>得分：<span id=score>0</span></div>
-        <div id="timebar"></div>
-        <div id="board"></div>
-        <button onclick="gameStart()">遊戲開始</button>
-    </body>
+        }
+        function newTarget() {
+            var x=document.createElement("div");
+            x.className="target";
+            x.score=getRandNum(1,5);
+            x.pos={x:0, y:0, w:50, h:50};
+            x.pos.w=(6-x.score)*10+20;
+            x.pos.h=x.pos.w;
+            x.pos.x=getRandNum(0,800-x.pos.w);
+            x.pos.y=getRandNum(0,800-x.pos.h);
+            x.style.width=x.pos.w+"px";
+            x.style.height=x.pos.h+"px";
+            x.style.left=x.pos.x+"px";
+            x.style.top=x.pos.y+"px";
+            x.style.backgroundColor=`hsl(${getRandNum(0,360)},80%,50%)`;
+            x.addEventListener("click",hitTarget);
+            get("board").appendChild(x);
+        }
+        function gameStart() {
+            gameing=true;
+            gameScore=0;
+            tbWidth=800;
+            gameTimer=setInterval(timeCountdown,100);
+            targetTimer=setInterval(newTarget,1000);
+
+            topScore=localStorage.getItem("topScore");
+            if(topScore) topScore=parseInt(topScore);
+            else topScore=0;
+            get("topScore").innerHTML=topScore;
+        }
+        function gameStop() {
+            gameing=false;
+            clearInterval(gameTimer);
+            clearInterval(targetTimer);
+            if(topScore<gameScore) {
+                localStorage.setItem("topScore",gameScore);
+            }
+        }
+    </script>
+</head>
+<body>
+    <ul>
+        <li><a href="310228.html">HTML簡介</a></li>
+        <li><a href="310228-2.html">第二次上課筆記</a></li>
+        <li><a href="310228-3.html">CSS基本語法</a></li>
+        <li><a href="310228-4.html">CSS漸層與動畫</a></li>
+        <li><a href="310228-5.html">元素的平面空間</a></li>
+        <li><a href="310228-6.html">精靈圖</a></li>
+        <li><a href="310228-7.html">JS簡介</a></li>
+        <li><a href="310228-8.html">表單控制及亂數</a></li>
+        <li><a href="310228-9.html">1104上課筆記</a></li>
+        <li><a href="310228-10.html">翻牌遊戲</a></li>
+        <li><a href="310228-12.html">1125上課筆記-鍵盤控制</a></li>
+        <li><a href="310228-13.html">1202上課筆記-鍵盤控制2</a></li>
+        <li><a href="finalgame.html">期末作品</a></li>
+        <li><a href="index.html">回到首頁</a></li>
+    </ul>
+    <hr>
+    <div>得分：<span id="score">0</span>，目前最高分是 <span id="topScore">0</span>分</div>
+    <div id="timebar"></div>
+    <div id="board"></div>
+    <button onclick="gameStart();">遊戲開始</button>
+</body>
 </html>

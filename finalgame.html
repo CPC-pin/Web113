@@ -1,76 +1,52 @@
 <html>
-    <head>
-        <title>期末作品</title>
-        <meta charset="UTF-8">
-        <style>
-            h1 {
-                margin-top: 10px;
-            }
-            #gamearea {
-                position: relative;
-                width: 90%;
-                height: 500px;
-                margin: 20px auto;
-                background-color: white;
-                border: 2px solid black;
-                overflow: hidden;
-            }
-            .target {
-                position: absolute;
-                width: 40px;
-                height: 40px;
-                background: red;
-                border-radius: 50%;
-            }
-            button {
-                margin-top: 20px;
-                padding: 10px 20px;
-                font-size: 16px;
-            }
-            p {
-              font-size: 20px; 
-            }
-        </style>
-        <script>
-            var gamearea = document.getElementById("gamearea");
-            var scoredisplay = document.getElementById("score");
-            var timedisplay = document.getElementById("time");
-            var startbutton = document.getElementById("startbutton");
-            var score = 0;
-            var timeleft = 30;
-            var gamerunning = false;
-            var gameinterval;
-            var targetinterval;
-            function startgame() {
-                score = 0;
-                timeleft = 30;
-                gamerunning = true;
-                scoredisplay.textContent = score;
-                timedisplay.textContent = timeleft;
-                startbutton.disabled = true;
-                setInterval(function() { 
-                    timeleft--;
-                    timedisplay.textContent = timeleft;
-                    if (timeleft <= 0 ) {
-                        endgame();
-                    }
-                }, 1000);
-                targetinterval = setInterval(spamtarget, 1000);
-            }
-            function endgame() {
-                clearInterval(gameinterval);
-                clearInterval(targetinterval);
-                gamerunning = false;
-                alert("遊戲結束！你的分數是："+ score);
-                startbutton.disabled = false;
-            }
-            function spamtarget () {
-                
-            }
-        </script>
-    </head>
-    <body>
-        <ul>
+<head>
+    <meta charset="UTF-8">
+    <title>期末遊戲</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align:center;
+            margin-top: 10px;
+            color: #3a025a;
+        }
+
+        #gameArea {
+            position: relative;
+            width: 700px;
+            height: 700px;
+            margin: 20px auto;
+            background-color: lightgray;
+            border: 3px solid black;
+            overflow: hidden;
+        }
+
+        .target {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: red;
+            border-radius: 50%;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 15px;
+        }
+
+        p {
+            text-align:center;
+            font-size: 20px;
+            color: #02285a;
+        }
+    </style>
+</head>
+<body>
+    <ul>
         <li><a href="310228.html">HTML簡介</a></li>
         <li><a href="310228-2.html">第二次上課筆記</a></li>
         <li><a href="310228-3.html">CSS基本語法</a></li>
@@ -85,13 +61,88 @@
         <li><a href="310228-12.html">1125上課筆記-鍵盤控制</a></li>
         <li><a href="310228-13.html">1202上課筆記-鍵盤控制2</a></li>
         <li><a href="index.html">回到首頁</a></li>
-    </ul>
+      </ul>
     <hr>
-    <h1>AIMLAB SIMULATOR</h1>
-    <p>分數：<span id="score">0</span>｜剩餘時間：<span id="time">30</span></p>
-    <div id="gamearea"></div>
-    <button id="startbutton">開始遊戲</button>
+    <h1><b><i>AIMLAB SIMULATOR</i></b></h1>
+    <p>分數：<span id="score">0</span>｜剩餘時間：<span id="time">30</span>秒</p>
+    <div id="gameArea"></div>
+    <button id="startButton"><b>開始遊戲</b></button>
 
+    <script>
+        var gameArea = document.getElementById('gameArea');
+        var scoreDisplay = document.getElementById('score');
+        var timeDisplay = document.getElementById('time');
+        var startButton = document.getElementById('startButton');
+        var score = 0;
+        var timeLeft = 30;
+        var gameRunning = false;
+        var gameInterval;
+        var targetInterval;
 
-    </body>
+        // 開始遊戲
+        function startGame() {
+            score = 0;
+            timeLeft = 30;
+            gameRunning = true;
+            scoreDisplay.textContent = score;
+            timeDisplay.textContent = timeLeft;
+            startButton.disabled = true;
+            // 倒數計時
+            gameInterval = setInterval(function() {
+                timeLeft--;
+                timeDisplay.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+
+            // 每秒生成目標
+            targetInterval = setInterval(spawnTarget, 800);
+        }
+
+        // 結束遊戲
+        function endGame() {
+            clearInterval(gameInterval);
+            clearInterval(targetInterval);
+            gameRunning = false;
+
+            alert('遊戲結束！你的分數是：' + score);
+            startButton.disabled = false;
+            gameArea.innerHTML = ''; // 清除所有目標
+        }
+
+        // 生成目標
+        function spawnTarget() {
+            if (!gameRunning) return;
+
+            var target = document.createElement('div');
+            target.classList.add('target');
+
+            // 隨機位置
+            var x = Math.random() * (gameArea.clientWidth - 40);
+            var y = Math.random() * (gameArea.clientHeight - 40);
+            target.style.left = x + 'px';
+            target.style.top = y + 'px';
+
+            // 點擊事件
+            target.addEventListener('click', function() {
+                score++;
+                scoreDisplay.textContent = score;
+                target.remove();
+            });
+
+            gameArea.appendChild(target);
+
+            // 未點擊時自動移除
+            setTimeout(function() {
+                if (gameArea.contains(target)) {
+                    target.remove();
+                }
+            }, 700);
+        }
+
+        // 開始按鈕事件
+        startButton.addEventListener('click', startGame);
+    </script>
+</body>
 </html>
