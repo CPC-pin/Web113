@@ -79,7 +79,6 @@
         var gameInterval;
         var targetInterval;
 
-        // 開始遊戲
         function startGame() {
             score = 0;
             timeLeft = 30;
@@ -87,7 +86,7 @@
             scoreDisplay.textContent = score;
             timeDisplay.textContent = timeLeft;
             startButton.disabled = true;
-            // 倒數計時
+
             gameInterval = setInterval(function() {
                 timeLeft--;
                 timeDisplay.textContent = timeLeft;
@@ -96,11 +95,9 @@
                 }
             }, 1000);
 
-            // 每秒生成目標
             targetInterval = setInterval(spawnTarget, 800);
         }
 
-        // 結束遊戲
         function endGame() {
             clearInterval(gameInterval);
             clearInterval(targetInterval);
@@ -108,23 +105,20 @@
 
             alert('遊戲結束！你的分數是：' + score);
             startButton.disabled = false;
-            gameArea.innerHTML = ''; // 清除所有目標
+            gameArea.innerHTML = '';
         }
 
-        // 生成目標
         function spawnTarget() {
             if (!gameRunning) return;
 
             var target = document.createElement('div');
             target.classList.add('target');
 
-            // 隨機位置
             var x = Math.random() * (gameArea.clientWidth - 40);
             var y = Math.random() * (gameArea.clientHeight - 40);
             target.style.left = x + 'px';
             target.style.top = y + 'px';
 
-            // 點擊事件
             target.addEventListener('click', function() {
                 score++;
                 scoreDisplay.textContent = score;
@@ -133,7 +127,6 @@
 
             gameArea.appendChild(target);
 
-            // 未點擊時自動移除
             setTimeout(function() {
                 if (gameArea.contains(target)) {
                     target.remove();
@@ -141,7 +134,6 @@
             }, 700);
         }
 
-        // 開始按鈕事件
         startButton.addEventListener('click', startGame);
     </script>
 </body>
