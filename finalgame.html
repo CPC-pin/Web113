@@ -64,6 +64,7 @@
       </ul>
     <hr>
     <h1><b><i>AIMLAB SIMULATOR</i></b></h1>
+    <p>每0.85秒生成一個目標，若0.9秒後沒點擊到會消除</p>
     <p>分數：<span id="score">0</span>｜剩餘時間：<span id="time">30</span>秒</p>
     <div id="gameArea"></div>
     <button id="startButton"><b>開始遊戲</b></button>
@@ -95,7 +96,7 @@
                 }
             }, 1000);
 
-            targetInterval = setInterval(spawnTarget, 800);
+            targetInterval = setInterval(spawnTarget, 850);
         }
 
         function endGame() {
@@ -131,7 +132,7 @@
                 if (gameArea.contains(target)) {
                     target.remove();
                 }
-            }, 700);
+            }, 900);
         }
 
         startButton.addEventListener('click', startGame);
