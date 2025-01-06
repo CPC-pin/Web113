@@ -5,54 +5,48 @@
         <!-- HTML註解 -->
          <style>
             #ans {
-                background-color: yellow;
+                background-color: lightblue;
             }
          </style>
         <script>
-            //JS單行註解
-            /*JS多行註解*/
-            //只有確定的訊息alert("Ni Hao !");
-            //console.log("主控台訊息");
-            function myfunction() {
-                /*ans=prompt("你是誰?")/*可回答問題及確定取消*/
-                /*console.log(ans)
-                if(ans==null) {
-                    console.log("你按了取消");
-                } else {
-                    console.log("你輸入了"+ans);
-                }
-            }
-            if(confirm("你確定嗎")){
+        // JS單行註解
+        /* JS多行註解 */
+        function myfuncion() {
+            /*  alert("只有確定的訊息"); */
+            /*
+            if(confirm("你確定嗎？")) {
                 console.log("你按了確定");
-                }
-                else{
-                    console.log("你按了取消")
-                }*/
-               /*ans=prompt("可回答問題和取消");
-               console.log(typeof(ans));
-               if(ans==null) {
-                console.log("你按了取消")
-               } else {
-                console.log("你輸入了"+ans)
-               }*/
+            } else {
+                console.log("你按了取消");
             }
-            function add () {
-                var n1=document.getElementById("n1").value;
-                var n2=document.getElementById("n2").value;
-                var ans=parseInt(n1)+parseInt(n2);
-                document.getElementById("ans").value=ans;
-                if(ans<60) {
-                    document.getElementById("ans").style.color="red"
-
-                } else {
-                    document.getElementById("ans").style.backgroundColor="green"
-
-                }
-                document.getElementById("ans").style.backgroundColor="pink"
+            */
+           /*
+            ans=prompt("可回答問題及確定取消");
+            console.log(typeof(ans));
+            if(ans==null) {
+                console.log("你按了取消");
+            } else {
+                console.log("你輸入了"+ans);
             }
+            */
+        }
+        function get(id) {
+            return document.getElementById(id);
+        }
+        function add() {
+            var n1=get("n1").value;
+            var n2=get("n2").value;
+            var ans=get("ans");
 
+            ans.value=parseInt(n1)+parseInt(n2);
+            if(ans.value < 60) {
+                ans.style.color="red";
+            } else {
+                ans.style.color="green";
+            }
+            ans.style.backgroundColor="lightblue";
+        }
         </script>
-
     </head>
     <body>
         <li><a href="310228.html">HTML簡介</a></li>
