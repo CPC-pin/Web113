@@ -9,6 +9,7 @@
         background-position: center;
         background-repeat: no-repeat;
         }
+        
         h1 {
             text-align:center;
             margin-top: 10px;
@@ -47,9 +48,11 @@
             font-size: 20px;
             color: #940180;
         }
+
         a {
             color: #38026b;
         }
+
         ul {
             background-color: rgb(71, 166, 255);
             display: block;
@@ -100,7 +103,6 @@
             scoreDisplay.textContent = score;
             timeDisplay.textContent = timeLeft;
             startButton.disabled = true;
-
             gameInterval = setInterval(function() {
                 timeLeft--;
                 timeDisplay.textContent = timeLeft;
@@ -108,7 +110,6 @@
                     endGame();
                 }
             }, 1000);
-
             targetInterval = setInterval(spawnTarget, 800);
         }
 
@@ -124,23 +125,18 @@
 
         function spawnTarget() {
             if (!gameRunning) return;
-
             var target = document.createElement('div');
             target.classList.add('target');
-
             var x = Math.random() * (gameArea.clientWidth - 40);
             var y = Math.random() * (gameArea.clientHeight - 40);
             target.style.left = x + 'px';
             target.style.top = y + 'px';
-
             target.addEventListener('click', function() {
                 score++;
                 scoreDisplay.textContent = score;
                 target.remove();
             });
-
             gameArea.appendChild(target);
-
             setTimeout(function() {
                 if (gameArea.contains(target)) {
                     target.remove();
